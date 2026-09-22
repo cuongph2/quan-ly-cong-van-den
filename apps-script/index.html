@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <base target="_top">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nhập công văn đến</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f6f7f9;
+        --panel: #ffffff;
+        --text: #1d2433;
+        --muted: #667085;
+        --line: #d9dee8;
+        --primary: #0f766e;
+        --primary-dark: #115e59;
+        --danger: #b42318;
+        --ok: #067647;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 15px;
+        line-height: 1.45;
+      }
+
+      main {
+        max-width: 1040px;
+        margin: 0 auto;
+        padding: 24px;
+      }
+
+      header {
+        margin-bottom: 18px;
+      }
+
+      h1 {
+        margin: 0 0 4px;
+        font-size: 24px;
+        font-weight: 700;
+      }
+
+      .subtitle {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      form {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 20px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .full {
+        grid-column: 1 / -1;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: 700;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        padding: 10px 12px;
+        color: var(--text);
+        background: #fff;
+        font: inherit;
+      }
+
+      textarea {
+        min-height: 112px;
+        resize: vertical;
+      }
+
+      input:focus,
+      select:focus,
+      textarea:focus {
+        outline: 2px solid rgba(15, 118, 110, 0.25);
+        border-color: var(--primary);
+      }
+
+      .actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-top: 18px;
+      }
+
+      button {
+        border: 0;
+        border-radius: 6px;
+        padding: 11px 16px;
+        background: var(--primary);
+        color: white;
+        font: inherit;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background: var(--primary-dark);
+      }
+
+      button:disabled {
+        cursor: wait;
+        opacity: 0.65;
+      }
+
+      .status {
+        min-height: 22px;
+        color: var(--muted);
+      }
+
+      .status.ok {
+        color: var(--ok);
+      }
+
+      .status.error {
+        color: var(--danger);
+      }
+
+      @media (max-width: 720px) {
+        main {
+          padding: 16px;
+        }
+
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>Nhập công văn đến</h1>
+        <p class="subtitle">Dữ liệu sẽ được ghi vào Google Sheets và tệp đính kèm sẽ lưu trên Google Drive.</p>
+      </header>
+
+      <form id="congVanForm">
+        <div class="grid">
+          <div>
+            <label for="soDen">Số đến *</label>
+            <input id="soDen" name="soDen" required>
+          </div>
+
+          <div>
+            <label for="ngayDen">Ngày đến *</label>
+            <input id="ngayDen" name="ngayDen" type="date" required>
+          </div>
+
+          <div>
+            <label for="soKyHieu">Số ký hiệu *</label>
+            <input id="soKyHieu" name="soKyHieu" required>
+          </div>
+
+          <div>
+            <label for="ngayVanBan">Ngày văn bản</label>
+            <input id="ngayVanBan" name="ngayVanBan" type="date">
+          </div>
+
+          <div class="full">
+            <label for="coQuanBanHanh">Cơ quan ban hành *</label>
+            <input id="coQuanBanHanh" name="coQuanBanHanh" required>
+          </div>
+
+          <div class="full">
+            <label for="trichYeu">Trích yếu *</label>
+            <textarea id="trichYeu" name="trichYeu" required></textarea>
+          </div>
+
+          <div>
+            <label for="loaiVanBan">Loại văn bản</label>
+            <select id="loaiVanBan" name="loaiVanBan">
+              <option value="">Chọn loại văn bản</option>
+              <option>Công văn</option>
+              <option>Quyết định</option>
+              <option>Thông báo</option>
+              <option>Báo cáo</option>
+              <option>Giấy mời</option>
+              <option>Khác</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="hanXuLy">Hạn xử lý</label>
+            <input id="hanXuLy" name="hanXuLy" type="date">
+          </div>
+
+          <div>
+            <label for="doKhan">Độ khẩn</label>
+            <select id="doKhan" name="doKhan">
+              <option>Thường</option>
+              <option>Khẩn</option>
+              <option>Hỏa tốc</option>
+              <option>Thượng khẩn</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="doMat">Độ mật</label>
+            <select id="doMat" name="doMat">
+              <option>Thường</option>
+              <option>Mật</option>
+              <option>Tối mật</option>
+              <option>Tuyệt mật</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="donViChuTri">Đơn vị chủ trì</label>
+            <input id="donViChuTri" name="donViChuTri">
+          </div>
+
+          <div>
+            <label for="nguoiXuLy">Người xử lý</label>
+            <input id="nguoiXuLy" name="nguoiXuLy">
+          </div>
+
+          <div>
+            <label for="trangThai">Trạng thái</label>
+            <select id="trangThai" name="trangThai">
+              <option>Mới tiếp nhận</option>
+              <option>Đã phân công</option>
+              <option>Đang xử lý</option>
+              <option>Chờ bổ sung</option>
+              <option>Hoàn thành</option>
+              <option>Quá hạn</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="files">Tệp PDF/scan/phụ lục</label>
+            <input id="files" name="files" type="file" multiple accept=".pdf,image/*,.doc,.docx,.xls,.xlsx">
+          </div>
+
+          <div class="full">
+            <label for="ghiChu">Ghi chú</label>
+            <textarea id="ghiChu" name="ghiChu"></textarea>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button id="submitButton" type="submit">Lưu công văn</button>
+          <span id="status" class="status"></span>
+        </div>
+      </form>
+    </main>
+
+    <script>
+      const form = document.getElementById('congVanForm');
+      const statusEl = document.getElementById('status');
+      const submitButton = document.getElementById('submitButton');
+
+      document.getElementById('ngayDen').valueAsDate = new Date();
+
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        setStatus('Đang lưu...', '');
+        submitButton.disabled = true;
+
+        try {
+          const formData = new FormData(form);
+          const payload = Object.fromEntries(formData.entries());
+          payload.files = await readFiles(document.getElementById('files').files);
+
+          google.script.run
+            .withSuccessHandler((result) => {
+              form.reset();
+              document.getElementById('ngayDen').valueAsDate = new Date();
+              setStatus(`Đã lưu ${result.maCongVan}. Tệp đính kèm: ${result.fileCount}.`, 'ok');
+              submitButton.disabled = false;
+            })
+            .withFailureHandler((error) => {
+              setStatus(error.message || 'Không lưu được dữ liệu.', 'error');
+              submitButton.disabled = false;
+            })
+            .submitCongVanDen(payload);
+        } catch (error) {
+          setStatus(error.message || 'Không đọc được tệp đính kèm.', 'error');
+          submitButton.disabled = false;
+        }
+      });
+
+      function setStatus(message, type) {
+        statusEl.textContent = message;
+        statusEl.className = `status ${type || ''}`;
+      }
+
+      function readFiles(fileList) {
+        const files = Array.from(fileList || []);
+
+        return Promise.all(files.map((file) => {
+          return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+
+            reader.onload = () => {
+              const result = String(reader.result || '');
+              const base64 = result.includes(',') ? result.split(',')[1] : result;
+
+              resolve({
+                name: file.name,
+                mimeType: file.type,
+                base64
+              });
+            };
+
+            reader.onerror = () => reject(new Error(`Không đọc được tệp: ${file.name}`));
+            reader.readAsDataURL(file);
+          });
+        }));
+      }
+    </script>
+  </body>
+</html>
