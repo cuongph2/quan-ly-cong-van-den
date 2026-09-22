@@ -7,6 +7,7 @@ const HEADERS = [
   'MaCongVan',
   'SoDen',
   'NgayDen',
+  'DiaBan',
   'SoKyHieu',
   'NgayVanBan',
   'CoQuanBanHanh',
@@ -51,6 +52,7 @@ function submitCongVanDen(payload) {
     maCongVan,
     payload.soDen || '',
     toDateOrBlank_(payload.ngayDen),
+    payload.diaBan || '',
     payload.soKyHieu || '',
     toDateOrBlank_(payload.ngayVanBan),
     payload.coQuanBanHanh || '',
@@ -112,6 +114,7 @@ function validatePayload_(payload) {
   const requiredFields = [
     ['soDen', 'Số đến'],
     ['ngayDen', 'Ngày đến'],
+    ['diaBan', 'Địa bàn'],
     ['soKyHieu', 'Số ký hiệu'],
     ['coQuanBanHanh', 'Cơ quan ban hành'],
     ['trichYeu', 'Trích yếu']
