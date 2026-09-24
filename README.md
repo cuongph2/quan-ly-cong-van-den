@@ -1,10 +1,10 @@
-# Quản lý Công văn đến - V1 Form nhập liệu
+# Quản lý Công văn đến - V1 Form nhập liệu + AI OCR
 
 Bộ source này dùng để tạo form nhập công văn đến trên Google Apps Script.
 
 ## Cấu trúc
 
-- `apps-script/Code.gs`: backend ghi dữ liệu vào Google Sheets và lưu tệp đính kèm vào Google Drive.
+- `apps-script/Code.gs`: backend ghi dữ liệu vào Google Sheets, lưu tệp scan vào Drive, OCR file và đề xuất thông tin công văn.
 - `apps-script/index.html`: giao diện form nhập công văn đến.
 - `apps-script/appsscript.json`: cấu hình Apps Script.
 - `schema/google-sheets-schema.csv`: danh sách cột cần tạo trong Google Sheets.
@@ -23,7 +23,9 @@ Bộ source này dùng để tạo form nhập công văn đến trên Google Ap
 7. Trong `Code.gs`, thay:
    - `SPREADSHEET_ID`
    - `DRIVE_FOLDER_ID`
-8. Deploy thành Web app.
+8. Trong Apps Script, bật **Services → Drive API** để dùng OCR qua Google Drive.
+9. Deploy thành Web app.
+10. Mở Google Sheet, menu **TAMMI AI → Cài trigger quét AI mỗi 5 phút** để tự xử lý file scan mới.
 
 ## Dữ liệu đầu vào
 
@@ -44,3 +46,24 @@ Form đã có sẵn các trường chính:
 - Trạng thái
 - Ghi chú
 - Tệp PDF/scan/phụ lục
+
+## Luồng AI OCR
+
+Khi có file scan/PDF/ảnh:
+
+1. File được lưu vào folder Drive cấu hình trong `DRIVE_FOLDER_ID`.
+2. Apps Script dùng Google Drive OCR để đọc text tiếng Việt.
+3. Script bóc các trường:
+   - `SoKyHieuAI`
+   - `NgayVanBanAI`
+   - `CoQuanBanHanhAI`
+   - `TrichYeuAI`
+4. Nếu cột chính đang trống, script tự điền sang:
+   - `SoKyHieu`
+   - `NgayVanBan`
+   - `CoQuanBanHanh`
+   - `TrichYeu`
+5. `AIStatus` sẽ là:
+   - `DONE`: đủ tự tin
+   - `REVIEW`: cần người dùng kiểm tra
+   - `ERROR`: lỗi đọc file hoặc không tìm thấy file
