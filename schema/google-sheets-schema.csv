@@ -1,1 +1,1 @@
-ID,MaCongVan,SoDen,NgayDen,DiaBan,SoKyHieu,NgayVanBan,CoQuanBanHanh,TrichYeu,LoaiVanBan,DoKhan,DoMat,HanXuLy,DonViChuTri,NguoiXuLy,TrangThai,GhiChu,DriveFileIds,DriveFileUrls,CreatedAt,UpdatedAt,CreatedBy
+ID,MaCongVan,SoDen,NgayDen,DiaBan,SoKyHieu,NgayVanBan,CoQuanBanHanh,TrichYeu,LoaiVanBan,DoKhan,DoMat,HanXuLy,DonViChuTri,NguoiXuLy,TrangThai,GhiChu,DriveFileIds,DriveFileUrls,CreatedAt,UpdatedAt,CreatedBy,FileScan,OCRText,SoKyHieuAI,NgayVanBanAI,CoQuanBanHanhAI,TrichYeuAI,AIConfidence,AIStatus,AILastRun,AIError
