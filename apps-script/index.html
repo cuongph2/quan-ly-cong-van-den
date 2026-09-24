@@ -300,7 +300,10 @@
             .withSuccessHandler((result) => {
               form.reset();
               document.getElementById('ngayDen').valueAsDate = new Date();
-              setStatus(`Đã lưu ${result.maCongVan}. Tệp đính kèm: ${result.fileCount}.`, 'ok');
+              const aiMessage = result.aiStatus
+                ? ` AI: ${result.aiStatus}.`
+                : '';
+              setStatus(`Đã lưu ${result.maCongVan}. Tệp đính kèm: ${result.fileCount}.${aiMessage}`, 'ok');
               submitButton.disabled = false;
             })
             .withFailureHandler((error) => {
